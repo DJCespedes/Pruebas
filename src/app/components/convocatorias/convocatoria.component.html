@@ -1,0 +1,151 @@
+<h1>Convocatoria
+    <label class="text-primary">{{convocatoria.nombre}}</label>
+    <small class="ml-md-5">
+        <button [routerLink]="['/convocatorias']" class="btn btn-outline-danger rounded-circle">
+            <i class="fa fa-reply" aria-hidden="true"></i>
+        </button>
+    </small>
+</h1>
+<hr>
+<form #formConvocatoria="ngForm">
+    <div class="row">
+        <label class="col-md-2 col-form-label text-right">Descripción:</label>
+        <div class="col-md-8">
+            <textarea class="form-control" required [(ngModel)]="convocatoria.nombre" name="nombre" #nombre="ngModel"></textarea>
+            <div [hidden]="nombre.valid" class="text-danger h-25" role="alert">
+                Campo obligatorio</div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-md-2 col-form-label text-right">Desde:</label>
+        <div class="col-md-2">
+            <input type="date" class="form-control" required [(ngModel)]="convocatoria.fechaInicio" name="fechaInicio" #fechaInicio="ngModel">
+            <div [hidden]="fechaInicio.valid" class="text-danger h-25" role="alert">
+                Campo obligatorio</div>
+        </div>
+        <label class="col-md-2 col-form-label text-right">Hasta:</label>
+        <div class="col-md-2">
+            <input type="date" class="form-control" required [(ngModel)]="convocatoria.fechaFin" name="fechaFin" #fechaFin="ngModel">
+            <div [hidden]="fechaFin.valid" class="text-danger h-25" role="alert">
+                Campo obligatorio</div>
+        </div>
+        <button (click)="generarFechas()">traerFechas</button>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="card" *ngFor="let programa of programas; let i = index">
+            <div class="card-header">
+                <div class="form-group row">
+                    <label class="col-md-2">Programa :</label>
+                    <div class="col-md-3">
+                        <button class="btn btn-link" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne" (click)="current = i;verPrograma(dtFechasPrograma,programa)">
+                            {{programa.nombre}}
+                        </button>
+                    </div>
+                    <label class="col-md-1">Activo
+                        <input type="checkbox" [ngModel]="programa.activo" name="activo" class="form-control">
+                    </label>
+                    <label class="col-md-1">Turno :</label>
+                    <label class="col-md-1">
+                        <input #m [checked]="programa.turno == m.value" (click)="programa.turno = m.value" name="programaTurno{{i}}" value="M" type="radio"
+                            class="form-control">Mañana</label>
+                    <label class="col-md-1">
+                        <input #t [checked]="programa.turno == t.value" (click)="programa.turno = t.value" name="programaTurno{{i}}" value="T" type="radio"
+                            class="form-control">Tarde</label>
+                    <label class="col-md-1">Cupos</label>
+                    <div class="col-md-2">
+                        <input [(ngModel)]="programa.cupos" name="cupos" type="number" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="panel-collapse" [class.collapse]='current != i'>
+                <div class="card-body">
+                    <table class="table table-sm row-border hover" #dtFechasPrograma>
+                    </table>
+                    <div class="card" *ngFor="let grado of programa.grados; let i2 = index">
+                        <div class="card-header">
+                            <div class="form-group row">
+                                <label class="col-md-1">Grado:</label>
+                                <div class="col-md-3">
+                                    <button class="btn btn-link" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne" (click)="current2 = i2;verGrado(dtFechasGrado,grado)">
+                                        {{grado.nombre}}
+                                    </button>
+                                </div>
+                                <label class="col-md-1">Activo
+                                    <input type="checkbox" [ngModel]="grado.activo" name="activo" class="form-control">
+                                </label>
+                                <div *ngIf="true">
+                                <label class="col-md-1">Turno :</label>
+                                <label class="col-md-1">
+                                    <input #m [checked]="grado.turno == m.value" (click)="grado.turno = m.value" name="gradoTurno{{i2}}" value="M" type="radio"
+                                        class="form-control">Mañana</label>
+                                <label class="col-md-1">
+                                    <input #t [checked]="grado.turno == t.value" (click)="grado.turno = t.value" name="gradoTurno{{i2}}" value="T" type="radio"
+                                        class="form-control">Tarde</label>
+                                <label class="col-md-1">Cupos</label>
+                                <div class="col-md-2">
+                                    <input [(ngModel)]="grado.cupos" name="cupos" type="number" class="form-control">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-collapse" [class.collapse]='current2 != i2'>
+                            <div class="card-body">
+                                <table class="table table-sm row-border hover" #dtFechasGrado>
+                                </table>
+                                <div class="panel-collapse" [class.collapse]='current != i'>
+                                    <div class="card-body">
+                                        <div class="card" *ngFor="let actividad of grado.actividades; let i3 = index">
+                                            <div class="card-header">
+                                                <div class="form-group row">
+                                                    <label class="col-md-1">Actividad :</label>
+                                                    <div class="col-md-2">
+                                                        <button class="btn btn-link" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne" (click)="current3 = i3;verActividad(dtFechas,actividad)">
+                                                            {{actividad.nombre}}
+                                                        </button>
+                                                    </div>
+                                                    <label class="col-md-1">Activo
+                                                        <input type="checkbox" [ngModel]="actividad.activo" name="activo" class="form-control">
+                                                    </label>
+                                                    <label class="col-md-1">Turno :</label>
+                                                    <label class="col-md-1">
+                                                        <input #m [checked]="actividad.turno == m.value" (click)="actividad.turno = m.value" name="actividadTurno{{i3}}" value="M"
+                                                            type="radio" class="form-control">Mañana</label>
+                                                    <label class="col-md-1">
+                                                        <input #t [checked]="actividad.turno == t.value" (click)="actividad.turno = t.value" name="actividadTurno{{i3}}" value="T"
+                                                            type="radio" class="form-control">Tarde</label>
+                                                    <label class="col-md-1">Cupos</label>
+                                                    <div class="col-md-2">
+                                                        <input [(ngModel)]="actividad.cupos" name="activo" type="number" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-collapse" [class.collapse]='current3 != i3'>
+                                                <div class="card-body">
+                                                    <div>
+                                                        <table class="table table-sm row-border hover" #dtFechas>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 mt-3">
+            <div class="text-right">
+                <button [disabled]="!formConvocatoria.valid" class="btn btn-primary" type="submit">
+                    <i class="fa fa-save" aria-hidden="true" (click)="guardar()"></i>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

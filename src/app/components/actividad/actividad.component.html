@@ -1,0 +1,71 @@
+<!-- Creacion: TCS - Fecha: 21/07/2018 - v1.0 -->
+<div 
+    class=" text-danger pull-right border border-danger rounded"
+    [hidden]="formActividad.valid"  role="alert">
+    Es necesario completar los campos
+</div>
+
+<h1>Actividad <label class="text-primary">{{actividad.nombre}}</label> 
+    <small class="ml-md-5">
+        <button  [routerLink]="['/grado','actualizar',0,actividad.gradoId]"
+            class="btn btn-outline-danger rounded-circle" >
+            <i class="fa fa-reply" aria-hidden="true"></i>
+        </button>
+    </small></h1>
+<hr>
+
+<div class="col-md-5">
+  <!-- <div class="p-2 mb-2 border border-secondary bg-info text-white"> -->
+  <div class="p-1 mb-2 border border-primary bg-primary text-white">
+    <label class="ml-md-2 font-weight-bold">Grado:</label>
+    <label class="ml-md-5 ">{{NombreGrado}}</label>
+  </div>
+</div>
+<form (ngSubmit)="guardarActividadYRedireccionarAgrado()" #formActividad="ngForm">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label text-right">Nombre:</label>
+                <div class="col-md-4">
+                    <input  [(ngModel)]="actividad.nombre"
+                        name="nombre"
+                        #nombre="ngModel"
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Nombre de Actividad"
+                        required>
+                    <div [hidden]="nombre.valid" class="text-danger h-25" role="alert">Campo obligatorio</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label text-right">Descripción:</label>
+                <div class="col-md-8">
+                    <textarea [(ngModel)]="actividad.descripcion"
+                        name="descripcion"
+                        #descripcion="ngModel"
+                        rows="4" 
+                        cols="50" 
+                        class="form-control" 
+                        placeholder="Descripción de la actividad"   
+                        required>
+                    </textarea>
+                    <div [hidden]="descripcion.valid" class="text-danger h-25" role="alert">Campo obligatorio</div>
+                </div>
+            </div>
+        </div>
+
+        
+    <div class="col-md-10 mt-3">
+            <div class="form-group  text-right">
+                <button [disabled]="!formActividad.valid"
+                    class="btn btn-primary" 
+                    type="submit">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

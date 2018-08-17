@@ -1,0 +1,42 @@
+<h1>Contáctanos</h1>
+<hr>
+<form>
+    <div class="row">
+        <div class="form-group row pull-right">
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group row" align="middle">
+            <!-- <img class="img-responsive" src="assets/images/bcp1.jpg"></img> -->
+            <img class="col-md-2" src="assets/images/Electronic.mail.png" width="90" height="90" alt="" align="middle">
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="form-group row">
+            <label class="col-md-2 col-form-label">Email</label>
+            <div class="col-md-10">
+                <input type="email" class="form-control" [(ngModel)]="correo.email" name="email" #email="ngModel" placeholder="Tu eMail" required>
+                <div [hidden]="email.valid" class="alert alert-danger" role="alert">Campo obligatorio</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2 col-form-label">Asunto</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" [(ngModel)]="correo.subject" name="subject" #subject="ngModel" placeholder="Asunto" required>
+                <div [hidden]="subject.valid" class="alert alert-danger" role="alert">Campo obligatorio</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <textarea [(ngModel)]="correo.mensaje" name="mensaje" rows="4" cols="2" #subject="ngModel" class="form-control" placeholder="Mensaje del correo" required>
+                      </textarea>
+            </div>
+        </div>
+        <div class="form-group  text-right">
+            <button class="btn btn-primary" type="button" (click)="enviarCorreo()">
+                Enviar
+                <i class="fa fa-send" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</form>

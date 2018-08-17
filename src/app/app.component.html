@@ -1,0 +1,106 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav" >
+		<a class="navbar-brand" routerLink="/inicio">
+			<h4>
+				<img src="../assets/images/bcp-logo.png" class="logo-bcp">&nbsp; Web Voluntariado BCP</h4>
+		</a>
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+		 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion" >
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home" routerLinkActive="active" *ngIf="sesionAbierta">
+					<a class="nav-link" routerLink="/inicio">
+						<i class="fa fa-fw fa-home">&nbsp;</i>
+						<span class="nav-link-text">Home</span>
+					</a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perfil" routerLinkActive="active" *ngIf="sesionAbierta">
+						<a class="nav-link" [routerLink]="['registro-voluntarios']">
+							<i class="fa fa-fw fa-registered">&nbsp;</i>
+							<span class="nav-link-text">Registro de voluntarios* </span>
+						</a>
+					</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Perfil" routerLinkActive="active" *ngIf="sesionAbierta">
+					<a class="nav-link" [routerLink]="['usuario','perfil']">
+						<i class="fa fa-fw fa-user">&nbsp;</i>
+						<span class="nav-link-text">Perfil</span>
+					</a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Voluntario" routerLinkActive="active" *ngIf="sesionAbierta">
+					<a class="nav-link" routerLink="/voluntario">
+						<i class="fa fa-fw fa-hand-grab-o">&nbsp;</i>
+						<span class="nav-link-text">Se Voluntariado BCP</span>
+					</a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Equipo" routerLinkActive="active" *ngIf="sesionAbierta">
+					<a class="nav-link" routerLink="/equipo">
+						<i class="fa fa-fw fa-users">&nbsp;</i>
+						<span class="nav-link-text">El equipo</span>
+					</a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Contáctanos" routerLinkActive="active" *ngIf="sesionAbierta">
+					<a class="nav-link" [routerLink]="['contactanos']">
+						<i class="fa fa-fw fa-envelope">&nbsp;</i>
+						<span class="nav-link-text">Contáctanos</span>
+					</a>
+				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels" *ngIf="sesionAbierta">
+						<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
+						  <i class="fa fa-fw fa-wrench">&nbsp;</i>
+						  <span class="nav-link-text">Administración</span>
+						</a>
+						<ul class="sidenav-second-level collapse" id="collapseMulti">
+							<li routerLinkActive="active">
+								<a routerLink="/administracion/intereses">Intereses</a>
+							</li>
+							<li routerLinkActive="active">
+								<a routerLink="/programas">Programas</a>
+							</li>
+							<li routerLinkActive="active">
+								<a [routerLink]="['grado','nuevo','1']">Grado(tmp)</a>
+							</li>
+							<li routerLinkActive="active">
+								<a routerLink="/convocatorias">Convocatorias</a>
+							</li>
+						</ul>
+					  </li>
+			</ul>
+			<ul class="navbar-nav sidenav-toggler">
+				<li class="nav-item">
+					<a class="nav-link text-center" id="sidenavToggler">
+						<i class="fa fa-fw fa-angle-left"></i>
+					</a>
+				</li>
+			</ul>
+
+			<ul class="navbar-nav ml-auto" >
+					<li class="nav-item" routerLinkActive="active" *ngIf="!sesionAbierta"><a
+						class="nav-link" routerLink="/ingreso"><i
+							class="fa fa-fw fa-sign-in">&nbsp;</i>Ingresar</a></li>
+					<li class="nav-item" routerLinkActive="active" *ngIf="!sesionAbierta"><a
+						class="nav-link" routerLink="['registro-voluntarios']"><i
+							class="fa fa-address-card">&nbsp;</i>Registrar</a></li>
+					<li *ngIf="usuario"><a class="nav-link" *ngIf="sesionAbierta"><i
+							class="fa fa-user">&nbsp;</i>{{usuario}}</a></li>
+					<li class="nav-item"><a class="nav-link"
+						style="cursor: pointer;" (click)="cerrarSesion()" *ngIf="sesionAbierta"><i
+							class="fa fa-fw fa-sign-out"></i>Cerrar Sesión</a></li>
+				</ul>
+		</div>
+	</nav>
+	<div class="content-wrapper">
+		<div class="container">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+	<footer class="sticky-footer">
+		<div class="container">
+			<div class="text-center">
+				<small>&copy; 2018 - Banco de Crédito del Perú</small>
+			</div>
+		</div>
+	</footer>
+</body>

@@ -1,0 +1,121 @@
+<!-- Creacion: TCS - Fecha: 24/07/2018 - v1.0 -->
+<div 
+    class=" text-danger pull-right border border-danger rounded"
+    [hidden]="formGrado.valid"  role="alert">
+    Es necesario completar los campos
+</div>
+
+<h1>Grado <label class="text-primary">{{grado.nombre}}</label> 
+  <small class="ml-md-5">
+      <button  [routerLink]="['/programa/actualizar',grado.programaId]"
+          class="btn btn-outline-danger rounded-circle" >
+          <i class="fa fa-reply" aria-hidden="true"></i>
+      </button>
+  </small></h1>
+<hr>
+
+<div class="col-md-5">
+<!-- <div class="p-2 mb-2 border border-secondary bg-info text-white"> -->
+<div class="p-1 mb-2 border border-primary bg-primary text-white">
+  <label class="ml-md-2 font-weight-bold">Programa:</label>
+  <label class="ml-md-5 ">{{NombrePrograma}}</label>
+</div>
+</div>
+<form (ngSubmit)="guardarGradoYRedireccionarAPrograma()" #formGrado="ngForm">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label text-right">Nombre:</label>
+                <div class="col-md-4">
+                    <input  [(ngModel)]="grado.nombre"
+                        name="nombre"
+                        #nombre="ngModel"
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Nombre de Grado"
+                        required>
+                    <div [hidden]="nombre.valid" class="text-danger h-25" role="alert">Campo obligatorio</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label text-right">Descripción:</label>
+                <div class="col-md-5">
+                    <textarea [(ngModel)]="grado.descripcion"
+                        name="descripcion"
+                        #descripcion="ngModel"
+                        rows="4" 
+                        cols="50" 
+                        class="form-control" 
+                        placeholder="Descripción del grado"  
+                        required>
+                    </textarea>
+                    <div [hidden]="descripcion.valid" class="text-danger h-25" role="alert">Campo obligatorio</div>
+                </div>
+                <div class="row col-md-5 ml-md-2">
+                    <div>
+                        <div class="col-md-12">
+                            <label class=" col-form-label text-right">Tipo de Grado:</label>
+                        </div>
+                        <div class="col-md-12">
+                            <select class="form-control" 
+                                    (change) ="contruirDataTableActividades(dtActividades1)"
+                                    [(ngModel)]="grado.conActividades" 
+                                    name="ConActividades" 
+                                    #ConActividades="ngModel"
+                                    required>
+                                    <option *ngFor="let tipoGrado of tiposGrado" [ngValue]="tipoGrado.value">{{tipoGrado.nombre}}</option>
+                                </select>
+                                {{tipoGrado}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+    <div class="row ml-md-2" [hidden]="!grado.conActividades">
+        <div class="col-md-10" >
+            <h4>
+                Actividades:
+                <!-- <button   [routerLink]="['/actividad','nuevo',grado.gradoId]" -->
+                <button (click) = 'agregarActividad()'
+                    class="ml-5 btn btn-outline-success pull-right btn-sm" 
+                    [disabled]="!formGrado.valid"
+                    type="button">
+                    <i class="fa fa-plus" 
+                    aria-hidden="true"></i>
+                    Agregar
+                </button>
+            </h4>
+        </div>
+        <div class="col-10 divTable mt-3">
+            <div #divDtActividades>
+                <table class="table table-sm row-border hover" #dtActividades>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row" >
+        <div class="col-10 divTable">
+            <div #divDtActividades>
+                <table class="table table-sm row-border hover" #dtActividades>
+                </table>
+            </div>
+        </div>
+    </div> -->
+    
+    <div class="row">
+        <div class="col-md-10 mt-3">
+            <div class="form-group  text-right">
+                <button [disabled]="!formGrado.valid"
+                    class="btn btn-primary" 
+                    type="submit">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

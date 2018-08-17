@@ -1,0 +1,24 @@
+<!-- Creacion: TCS - Fecha: 19/07/2018 - v1.0 -->
+<div class="container">
+    <div class="row" style="margin-top: 50px !important;">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+			<div class="card-header">Ingreso al Sistema</div>
+			<div class="card-body">
+                <label>Matrícula</label>
+                <input type="text" class="form-control"  [(ngModel)]="usuario.matricula" />
+                <br />
+                <label>Contraseña</label>
+                <input type="password" class="form-control"  [(ngModel)]="usuario.contrasenhia" />
+                <br />
+                <ngx-recaptcha2 #captchaElem [size]="size" [hl]="lang" [theme]="theme" [type]="type" (expire)="handleExpire()" (load)="handleLoad()" (success)="handleSuccess($event)">
+                </ngx-recaptcha2>
+                <hr />
+				<button class="btn btn-primary btn-block" type="button" (click)="iniciarSesion()">Ingresar</button>
+                {{error}}
+            </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
